@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glimpses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> 
+
+    <style>
+    /* ===== Color & Theme Variables ===== */
+    :root {
+      --color-bg: #F0EDE4 ;
+      --color-section-bg: #f6f4ee  ;
+      --color-text-primary: #000000;
+      --color-text-muted: #3a3b3c;
+      --color-accent: #004743;
+      --color-accent2: #217868;
+      --color-border: #ded5c4;
+      --color-shadow: rgba(0,0,0,0.08);
+    }
+
+    /* ===== Base Styles ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background-color: var(--color-bg); color: var(--color-text-primary); font-family: 'Fira Sans'; line-height: 1.6; }
+    a { color: var(--color-accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ===== Layout: Sidebar + Main Content ===== */
+    .sidebar { width: 260px; background-color: var(--color-section-bg); border-right: 1px solid var(--color-border); padding:70px 20px; position: fixed; top: 0; bottom: 0; overflow-y: auto; }
+    .sidebar img.avatar { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--color-accent); object-fit: cover; display: block; margin: 0 auto 20px auto; }
+    .sidebar h2 { font-family: 'Space Mono', serif; font-size: 2rem; color: var(--color-accent); text-align: center; margin-bottom: 10px; }
+    .sidebar p.role { font-size: 1rem; color: var(--color-accent2); text-align: center; margin-bottom: 15px; }
+    .sidebar p.desc {font-size: 0.9rem; color: var(--color-text-muted); text-align: center; margin-bottom: 20px; padding: 0 10px; }
+    .sidebar .links a { display: block; margin: 10px auto; padding: 8px 16px; max-width: 200px; border: 1px solid var(--color-accent); border-radius: 4px; text-align: center; background-color: white; font-weight: 500; }
+    .sidebar .links a:hover { background-color: var(--color-accent); color: white; }
+    .sidebar .nav { margin-top: 40px; list-style: none; text-align: center; }
+    .sidebar .nav li { margin-bottom: 15px; }
+    .sidebar .nav a { color: var(--color-text-primary); font-size: 1rem; padding: 4px 8px; display: inline-block; transition: color 0.2s; }
+    .sidebar .nav a:hover { color: var(--color-accent); }
+
+    .main { margin-left: 260px; padding: 0px 40px; max-width: 900px; margin-right: auto; }
+    header.hero { margin-bottom: 80px; }
+    header.hero h1 { font-family: 'Space Mono', serif; font-size: 3.8rem; color: var(--color-accent); margin-bottom: 20px; }
+    header.hero p {  font-size: 1.3rem; color: var(--color-text-muted); max-width: 600px; }
+
+    /* ===== Content Sections ===== */
+    .section-title { font-family: 'Space Mono', serif; font-size: 2.5rem; color: var(--color-accent2);margin-bottom: 30px; border-bottom: 2px solid var(--color-accent); padding-bottom: 8px; padding-top: 30px;}
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+    .project-card { background‐color: var(--color-section-bg); border: 1px solid var(--color-border); border-radius: 8px; box-shadow: 0 4px 8px var(--color-shadow); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 8px 16px var(--color-shadow); }
+    .project-card img { width: 100%; height: 200px; object-fit: cover; }
+    .project-card-content { padding: 20px; }
+    .project-card-content h3 { font-family: 'Space Mono'; font-style: italic ; font-size: 1.6rem; margin-bottom: 12px; color: var(--color-text-primary); }
+    .project-card-content p { font-size: 1rem; color: var(--color-text-muted); margin-bottom: 16px; }
+    .project-card-content a.btn { display: inline-block; padding: 10px 18px; background-color: var(--color-accent); color: white; border-radius: 4px; text-decoration: none; font-weight: 600; transition: background-color 0.3s; }
+    .project-card-content a.btn:hover { background-color: var(--color-accent2); }
+
+    .art-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 25px; }
+    .art-item { background-color: var(--color-section-bg); border: 1px solid var(--color-border); border-radius: 8px; overflow: hidden; transition: transform 0.3s; cursor: pointer; }
+    .art-item:hover { transform: scale(1.03); }
+    .art-item img { width: 100%; height: 160px; object-fit: cover; }
+    .art-item .caption { padding: 10px; font-size: 0.9rem; font-style: italic;color: var(--color-text-muted); text-align: center; }
+
+    footer { margin-top: 60px; padding: 40px 0; font-size: 0.9rem; color: var(--color-text-muted); text-align: center; border-top: 1px solid var(--color-border); }
+
+    @media (max-width: 768px) {
+      .sidebar { position: relative; width: 100%; border-right: none; border-bottom: 1px solid var(--color-border); }
+      .main { margin-left: 0; padding: 10px 20px; }
+      header.hero h1 { font-size: 3rem; }
+      .section-title { font-size: 2.2rem; }
+    }
+
+    /* ===== Lightbox Styles ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .lightbox-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 8px;
+    }
+    .caption {
+      text-align: center;
+      color: #f1f1f1;
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .close:hover { color: #bbb; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <img src="https://i.pinimg.com/1200x/40/a5/d9/40a5d94387d9c6bc3d48774895bddc5f.jpg" alt="Avatar" class="avatar">
+    <h2>Ruchi! :)</h2>
+    <p class="role">Budding Data Scientist & Sports Fan & Artsy</p>
+    <p class="desc">Sometimes the creative juices and burning curiosity kicks in, and here's some of those instances!</p>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/ruchi--mishra" target="_blank">My LinkedIn</a>
+      <a href="https://github.com/ruchi-mish?tab=repositories" target="_blank">My GitHub</a>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- Projects placeholders (2 projects) -->
+    <section class="projects" id="projects">
+      <h2 class="section-title">Things I did for fun!</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <a href="https://github.com/ruchi-mish/Calder-Stanley-Correlation/blob/main/Stanley%20Calder%20correlation.ipynb" target="_blank">
+            <img src="does it matter.png" alt="Project 1 Screenshot">
+          </a>
+          <div class="project-card-content">
+            <h3>How Calder Trophies & Stanley Cups Correlate </h3>
+            <p>Does having the best rookies (Calder trophy) mean you win the most championships (Stanley Cup)? This project could be taken further to predict the current winners based on supervised random forest model, but aquiring stats for that project would be a whole other can of worms. Also, this is an inference that rather a team that wins more Calders is probably one that has better rosters; better built teams win Cups!</p>
+            <a class="btn" href="https://github.com/ruchi-mish/Calder-Stanley-Correlation/blob/main/Stanley%20Calder%20correlation.ipynb" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+        <div class="project-card">
+          <a href="https://github.com/ruchi-mish/spotify-data-analysis/blob/main/spotify.ipynb" target="_blank">
+            <img src="Spotify cover.png" alt="Map thumbnail">
+          </a>
+          <div class="project-card-content">
+            <h3>This is Spotify</h3>
+            <p>Playing with the top 50 songs on Spotify globally to perform EDA to find out what kind of music tops the charts globally, and explore how tastes differ in each country. The set includes data from countries like India and Indonesia, which have very small user bases. The sample is likely to not be a full representation of the full country, and people in other countries have been known to use VPNs to buy plans from India, for example, so the data may be slightly biased. Still, a fun project!</p>
+            <a class="btn" href="https://github.com/ruchi-mish/spotify-data-analysis/blob/main/spotify.ipynb" target="_blank">View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Art / Image placeholders (6 images, 3 per row) -->
+    <section class="art" id="art">
+      <h2 class="section-title">Some Digital Art</h2>
+      <div class="art-grid">
+        <div class="art-item"><img src="Your computer is on fire.jpg"><div class="caption">Your Computer Is On Fire</div></div>
+        <div class="art-item"><img src="Leaf Cover.jpg"><div class="caption">Magazine Cover (for collab with the nature club)</div></div>
+        <div class="art-item"><img src="too meaningless.jpg"><div class="caption">Distortion of the Creator's Vision</div></div>
+        <!-- <div class="art-item"><img src="big bull house.jpg"><div class="caption">Themed Event Night Instagram Mockup</div></div>
+        <div class="art-item"><img src="Anthology cover.png"><div class="caption">Cover for the Annual Anthology Series</div></div>
+        <div class="art-item"><img src="https://picsum.photos/seed/art6/400/300"><div class="caption">Art Title 6</div></div> -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div id="lightbox-caption" class="caption"></div>
+  </div>
+
+  <script>
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeBtn = document.querySelector('.close');
+
+    document.querySelectorAll('.art-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'block';
+        lightboxImg.src = img.src;
+        lightboxCaption.textContent = img.nextElementSibling.textContent;
+      });
+    });
+
+    closeBtn.addEventListener('click', () => lightbox.style.display = 'none');
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lightbox.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
