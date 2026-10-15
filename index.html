@@ -90,7 +90,8 @@ h1 .it{font:italic 400 1.04em/.9 var(--serif);text-transform:none;color:var(--fg
 .secbody{padding-block:clamp(34px,5vw,60px) clamp(44px,6vw,80px)}
 h2{font:400 clamp(34px,5.4vw,60px)/1 var(--display);text-transform:uppercase;letter-spacing:.01em}
 h2 .it{font:italic 400 1.04em/1 var(--serif);text-transform:none;color:var(--accent)}
-h2 .pipe{font-weight:400;color:var(--muted);margin:0 .12em}
+h2 .pipe{display:inline-block;width:1px;height:.72em;background:currentColor;color:var(--muted);opacity:.5;margin:0 .3em 0 .24em;vertical-align:-.03em;overflow:hidden;text-indent:-9999px;white-space:nowrap}
+.contact h2 .pipe{color:var(--cream)}
 .head{margin-bottom:30px}
 .lede{max-width:36em;color:var(--muted);margin-top:12px}
 
@@ -246,7 +247,6 @@ dialog#lb::backdrop{background:rgba(10,6,6,.86)}
 .lang{margin-top:18px;font-size:15px;color:var(--muted)}
 .contact{background:var(--cherry);color:var(--cream)}
 .contact .wrap{padding-block:clamp(48px,8vw,96px)}
-.contact h2{font-size:clamp(44px,8.4vw,104px);line-height:.95}
 .contact h2 .it{color:var(--butter)}
 .contact p{margin-top:18px;max-width:30em}
 .contact .btn{border-color:var(--cream);color:var(--cream)}
@@ -258,6 +258,7 @@ dialog#lb::backdrop{background:rgba(10,6,6,.86)}
 :root[data-theme="dark"] a.lab:hover p,:root[data-theme="dark"] a.lab:hover .data,:root[data-theme="dark"] a.lab:hover .status{color:var(--ink)}
 :root[data-theme="dark"] .contact{background:var(--butter);color:var(--ink)}
 :root[data-theme="dark"] .contact h2 .it{color:var(--blue)}
+:root[data-theme="dark"] .contact h2 .pipe{color:var(--ink)}
 :root[data-theme="dark"] .contact .btn{border-color:var(--ink);color:var(--ink)}
 :root[data-theme="dark"] .contact .btn.solid{background:var(--ink);color:var(--butter)}
 :root[data-theme="dark"] .contact .btn:hover{background:var(--cherry);border-color:var(--cherry);color:var(--cream)}
@@ -459,6 +460,7 @@ _/         \_</pre><span>Fraud line</span></a>
             <svg id="chart" viewBox="0 0 420 215" role="img" aria-labelledby="ct cd"><title id="ct">Two bell curves of risk scores</title><desc id="cd">Ordinary payments cluster near 0.3 and fraud near 0.7. A movable line sets the blocking threshold.</desc></svg>
             <div class="legend"><span><i style="background:var(--line);border:1px solid var(--muted)"></i>Ordinary payments</span><span><i style="background:var(--alert);opacity:.4"></i>Fraud</span><span><i style="background:var(--muted)"></i>Good payments blocked</span><span><i style="background:var(--alert)"></i>Fraud caught</span></div>
             <div class="sl"><label for="th">Block above</label><input type="range" id="th" min="0.2" max="0.9" step="0.01" value="0.5"><output id="thv" for="th">0.50</output></div>
+          <p class="small">Illustrative numbers, not real data: two bell curves with 2% of payments fraudulent, drawn at the same height so both stay visible. Where to put the line depends on what a missed fraud costs compared with an annoyed customer.</p>
           </div>
           <div>
             <ol class="steps">
@@ -474,7 +476,6 @@ _/         \_</pre><span>Fraud line</span></a>
             <p class="verdict" id="vd" aria-live="polite"></p>
           </div>
         </div>
-        <p class="small">Illustrative numbers, not real data: two bell curves with 2% of payments fraudulent, drawn at the same height so both stay visible. Where to put the line depends on what a missed fraud costs compared with an annoyed customer.</p>
       </article>
 
       <p class="nextlabel">Next up</p>
@@ -653,9 +654,9 @@ _/         \_</pre><span>Fraud line</span></a>
           <p class="cap" aria-hidden="true" data-bat="ascii, a bat, drawn in text">ascii, from a photo of David</p>
         </div>
         <figure class="frame"><button type="button" data-full="assets/Your%20computer%20is%20on%20fire.jpg" data-cap="Your Computer Is On Fire"><div class="fr"><div class="ph c-cherry"><img src="assets/thumbs/computer-on-fire.jpg" alt="Poster: a red warning triangle above the words your computer is on fire, melting downward" loading="lazy" onerror="this.remove()"></div></div></button><figcaption><b>Your Computer Is On Fire</b><span>Digital art</span></figcaption></figure>
-        <figure class="frame"><button type="button" data-full="assets/Leaf%20Cover.jpg" data-cap="Magazine cover, for a collab with the nature club"><div class="fr"><div class="ph c-butter"><img src="assets/thumbs/leaf-cover.jpg" alt="Magazine cover: white serif letters spelling Melior over dark green leaves" loading="lazy" onerror="this.remove()"></div></div></button><figcaption><b>Magazine cover</b><span>For a collab with the nature club</span></figcaption></figure>
-        <figure class="frame"><button type="button" data-full="assets/too%20meaningless.jpg" data-cap="Distortion of the Creator's Vision"><div class="fr"><div class="ph c-blue"><img src="assets/thumbs/too-meaningless.jpg" alt="Poster: a pixelated portrait swirled into a spiral, with red text about whether machines can think" loading="lazy" onerror="this.remove()"></div></div></button><figcaption><b>Distortion of the Creator's Vision</b><span>Digital art</span></figcaption></figure>
         <figure class="frame"><button type="button" data-full="assets/Literati.png" data-cap="Literati, compilation cover"><div class="fr"><div class="ph"><img src="assets/thumbs/literati.jpg" alt="Poster with large coloured serif letters spelling Literati on a black background" loading="lazy" onerror="this.remove()"></div></div></button><figcaption><b>Literati</b><span>Compilation cover</span></figcaption></figure>
+        <figure class="frame"><button type="button" data-full="assets/too%20meaningless.jpg" data-cap="Distortion of the Creator's Vision"><div class="fr"><div class="ph c-blue"><img src="assets/thumbs/too-meaningless.jpg" alt="Poster: a pixelated portrait swirled into a spiral, with red text about whether machines can think" loading="lazy" onerror="this.remove()"></div></div></button><figcaption><b>Distortion of the Creator's Vision</b><span>Digital art</span></figcaption></figure>
+        <figure class="frame"><button type="button" data-full="assets/Leaf%20Cover.jpg" data-cap="Magazine cover, for a collab with the nature club"><div class="fr"><div class="ph c-butter"><img src="assets/thumbs/leaf-cover.jpg" alt="Magazine cover: white serif letters spelling Melior over dark green leaves" loading="lazy" onerror="this.remove()"></div></div></button><figcaption><b>Magazine cover</b><span>For a collab with the nature club</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -665,7 +666,7 @@ _/         \_</pre><span>Fraud line</span></a>
     <div class="wrap secbody about">
       <div class="portrait rv" role="img" aria-label="Portrait of Ruchi">RM<img src="assets/ruchi.jpg" alt="" onerror="this.remove()"></div>
       <div class="rv">
-        <div class="head" style="margin-bottom:18px"><h2 data-bat="Dossier <span class='pipe'>|</span> <span class='it'>Behind the cowl</span>">About <span class="pipe">|</span> <span class="it">Numbers nerd, people person</span></h2></div>
+        <div class="head" style="margin-bottom:18px"><h2 data-bat="Dossier <span class='pipe'>|</span> <span class='it'>Behind the cowl</span>">About <span class="pipe">|</span> <span class="it">People person</span></h2></div>
         <p>I studied economics and data science at Singapore Management University, then moved home to Mumbai to work in payments. I was an editor for the student paper and general secretary of a club that won Best Arts Club, so I'm comfortable writing the story that goes with the numbers.</p>
         <p>I learn a method fastest when the dataset is about hockey, comics or music.</p>
         <div class="chips"><span>Python</span><span>R</span><span>SQL</span><span>Econometrics</span><span>Time series</span><span>Statistical learning</span><span>Data storytelling</span></div>
