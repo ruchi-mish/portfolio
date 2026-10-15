@@ -812,21 +812,22 @@ var HELP=[
 {t:"SELECT * FROM projects WHERE status = '{v}';",d:"next",o:["next","shipped"],l:"status",x:"what I am building next"},
 {t:"SELECT employer FROM experience ORDER BY start_date {v};",d:"DESC",o:["DESC","ASC"],l:"order",x:"the story, newest first"},
 {t:"SELECT skill FROM skills WHERE kind = '{v}';",d:"language",o:["language","method","human"],l:"kind",x:"what I work with"},
-{t:"SELECT * FROM hire_me;",x:"how to reach me"}];
+{t:"SELECT * FROM hire_me;",x:"how to reach me"},
+{t:"SHOW DATABASES;",x:"what else lives on this server"}];
 var q=$('q'),o=$('o'),h=$('h'),cur=$('cur'),mm=$('m');
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function pos(){mm.textContent=q.value.slice(0,q.selectionStart==null?q.value.length:q.selectionStart);var x=mm.offsetWidth-q.scrollLeft;cur.style.left=x+'px';cur.style.display=(x>q.clientWidth||x<0)?'none':'block'}
 function fill(t){q.value=t;q.focus({preventScroll:true});q.setSelectionRange(t.length,t.length);h.textContent='Filled. Press Enter to run, or edit it first.';pos()}
 function tbl(cols,rows){var s='<table><tr>'+cols.map(function(c){return'<th>'+esc(c)+'</th>'}).join('')+'</tr>';rows.forEach(function(r){s+='<tr>'+r.map(function(v){return'<td>'+esc(v)+'</td>'}).join('')+'</tr>'});return s+'</table>'}
 function cmdOf(i,v){var r=HELP[i];return r.t.replace('{v}',v==null?r.d:v)}
-function helpOut(){var s='<table><tr><th style="width:56%">Command</th><th>output</th></tr>';HELP.forEach(function(r,i){s+='<tr><td><span class="cmd" role="button" tabindex="0" data-i="'+i+'">'+esc(cmdOf(i))+'</span></td><td>'+esc(r.x);if(r.o){s+='<div class="sw">'+esc(r.l)+': ';s+=r.o.map(function(v,j){return'<span class="v" role="button" tabindex="0" data-i="'+i+'" data-j="'+j+'">'+esc(v)+'</span>'}).join(', ');s+='</div>'}s+='</td></tr>'});return s+'</table><div class="dim">Click a command or a value to fill the box, then press Enter. Or write your own using the tables below. Curious what else is on this server? Try SHOW DATABASES;</div>'}
+function helpOut(){var s='<table><tr><th style="width:56%">Command</th><th>output</th></tr>';HELP.forEach(function(r,i){s+='<tr><td><span class="cmd" role="button" tabindex="0" data-i="'+i+'">'+esc(cmdOf(i))+'</span></td><td>'+esc(r.x);if(r.o){s+='<div class="sw">'+esc(r.l)+': ';s+=r.o.map(function(v,j){return'<span class="v" role="button" tabindex="0" data-i="'+i+'" data-j="'+j+'">'+esc(v)+'</span>'}).join(', ');s+='</div>'}s+='</td></tr>'});return s+'</table><div class="dim">Click a command or a value to fill the box, then press Enter. Or write your own using the tables below.</div>'}
 function cmp(a,op,b){var x=parseFloat(a),y=parseFloat(b),n=!isNaN(x)&&!isNaN(y)&&String(x)==String(a).trim();var l=n?x:String(a).toLowerCase(),r=n?y:String(b).toLowerCase();
 if(op=='=')return l==r;if(op=='!='||op=='<>')return l!=r;if(op=='>')return l>r;if(op=='<')return l<r;if(op=='>=')return l>=r;if(op=='<=')return l<=r;
 if(op=='like'){return new RegExp('^'+String(b).toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/%/g,'.*')+'$').test(String(a).toLowerCase())}return false}
 function run(sql){var s=sql.trim().replace(/;+\s*$/,'').trim(),m;
 if(/^(help|\?|--help|-h|\\h)$/i.test(s))return helpOut();
 if(m=s.match(/^use\s+(\w+)$/i)){var dn=m[1].toLowerCase();if(dn==='gotham'){gotham(true);return'Database changed<div class="dim">Welcome to Gotham. USE ruchi; takes you home.</div>'}if(dn==='ruchi'||dn==='watchtower'){gotham(false);return'Database changed'}return'<span class="er">ERROR 1049 (42000): Unknown database \''+esc(m[1])+'\'</span>'}
-if(/^show\s+databases$/i.test(s))return tbl(['Database'],[['information_schema'],['ruchi'],['gotham']]);
+if(/^show\s+databases$/i.test(s))return'<table><tr><th>Database</th></tr>'+['information_schema','ruchi','gotham'].map(function(d){return d=='information_schema'?'<tr><td>'+d+'</td></tr>':'<tr><td><span class="cmd dbn" role="button" tabindex="0" data-db="'+d+'">'+d+'</span></td></tr>'}).join('')+'</table><div class="dim">Click a database to fill USE, then press Enter.</div>';
 if(/^show\s+tables$/i.test(s))return tbl(['Tables_in_ruchi'],Object.keys(DB).map(function(k){return[k]}));
 if(m=s.match(/^desc(?:ribe)?\s+(\w+)$/i)){var t=DB[m[1].toLowerCase()];if(!t)return'<span class="er">ERROR 1146 (42S02): Table \'ruchi.'+esc(m[1])+'\' doesn\'t exist</span>';return tbl(['Field'],t.c.map(function(c){return[c]}))}
 if(/^(insert|update|delete|drop|alter|create|truncate)\b/i.test(s))return'<span class="er">ERROR 1142 (42000): '+esc(s.split(/\s+/)[0].toUpperCase())+' command denied to user '+esc(USER)+'</span><br>Only League members can write. Try: SELECT * FROM hire_me;';
@@ -848,7 +849,7 @@ function exec(){var v=q.value;if(!v.trim())return;var low=v.trim().toLowerCase()
 hist.push(v);hp=hist.length;
 o.insertAdjacentHTML('beforeend','<div style="margin-top:8px"><span class="pr">mysql&gt;</span> '+esc(v)+'</div>'+run(v));
 o.scrollTop=o.scrollHeight;q.value='';h.textContent='Type another query, or HELP; for the list.';q.focus({preventScroll:true});pos()}
-function pick(e){var b=e.target.closest('.v');if(b){fill(cmdOf(+b.dataset.i,HELP[+b.dataset.i].o[+b.dataset.j]));return}var t=e.target.closest('.cmd');if(t)fill(cmdOf(+t.dataset.i))}
+function pick(e){var d=e.target.closest('.dbn');if(d){fill('USE '+d.dataset.db+';');return}var b=e.target.closest('.v');if(b){fill(cmdOf(+b.dataset.i,HELP[+b.dataset.i].o[+b.dataset.j]));return}var t=e.target.closest('.cmd');if(t)fill(cmdOf(+t.dataset.i))}
 o.addEventListener('click',pick);
 o.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){if(e.target.closest('.v,.cmd')){e.preventDefault();pick(e)}}});
 q.addEventListener('keydown',function(e){if(e.key=='Enter'){e.preventDefault();exec()}else if(e.key=='ArrowUp'&&hist.length){hp=Math.max(0,hp-1);q.value=hist[hp];e.preventDefault()}else if(e.key=='ArrowDown'&&hist.length){hp=Math.min(hist.length,hp+1);q.value=hist[hp]||'';e.preventDefault()}setTimeout(pos,0)});
