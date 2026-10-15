@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Bodoni+Moda:ital,wght@0,400;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <script>
 (function(){var t=null;try{t=localStorage.getItem('rm-theme')}catch(e){}
-if(t!=='dark'&&t!=='light'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}
+if(t!=='dark'&&t!=='light'){t='light'}
 document.documentElement.setAttribute('data-theme',t);document.documentElement.className='js'})();
 </script>
 <style>
@@ -628,9 +628,23 @@ _/         \_</pre><span>Fraud line</span></a>
           Then set data-cols to the length (in characters) of its longest line.
           Only shows in Gotham mode. Avoid the characters < > & in the art.
           ============================================================ -->
-          <pre class="ascii db" id="davidb" data-cols="26" aria-hidden="true">+------------------------+
-| BAT ASCII REPLACE HERE |
-+------------------------+</pre>
+          <pre class="ascii db" id="davidb" data-cols="26" aria-hidden="true">              *         *      *         *
+          ***          **********          ***
+       *****           **********           *****
+     *******           **********           *******
+   **********         ************         **********
+  ****************************************************
+ ******************************************************
+********************************************************
+********************************************************
+********************************************************
+ ******************************************************
+  ********      ************************      ********
+   *******       *     *********      *       *******
+     ******             *******              ******
+       *****             *****              *****
+          ***             ***              ***
+            **             *              **</pre>
           <p class="sr" data-bat="ASCII art of a bat logo, made from text characters.">ASCII art portrait of Michelangelo's David, made from text characters.</p>
           <p class="cap" aria-hidden="true" data-bat="ascii, a bat, drawn in text">ascii, from a photo of David</p>
         </div>
